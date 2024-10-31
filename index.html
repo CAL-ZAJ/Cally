@@ -1,15 +1,23 @@
-<!-- webapp/index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram Mini App</title>
+    <title>WebApp</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to the Mini App</h1>
-    <div id="user-info"></div>
+    <!-- شاشة التحميل -->
+    <div id="loading-screen">
+        <img src="loading.gif" alt="Loading..." />
+    </div>
+
+    <!-- محتوى الصفحة الرئيسي -->
+    <div id="content" style="display: none;">
+        <h1>معلومات المستخدم</h1>
+        <div id="user-info"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
