@@ -1,4 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
+  if (window.Telegram && window.Telegram.WebApp) {
+    console.log("Telegram WebApp موجود.");
+    console.log("بيانات initDataUnsafe:", window.Telegram.WebApp.initDataUnsafe);
+
+    if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+      const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      console.log("User ID:", userId);
+    } else {
+      console.warn("User information is not available in initDataUnsafe.");
+      alert("User information could not be retrieved.");
+    }
+  } else {
+    console.warn("Telegram WebApp غير متوفر.");
+    alert("Please open the app from within Telegram to access user information.");
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
   // تأكد من توفر Web App داخل Telegram
   if (window.Telegram && window.Telegram.WebApp) {
     const telegramWebApp = window.Telegram.WebApp;
