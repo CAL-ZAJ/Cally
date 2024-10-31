@@ -1,39 +1,22 @@
-document.getElementById('fetchUserData').addEventListener('click', function() {
- 
-  document.addEventListener('DOMContentLoaded', function() {
-  const telegramWebApp = window.Telegram.WebApp;
-
-  // التأكد من أن التطبيق يعمل داخل Telegram WebApp
-  if (telegramWebApp.initDataUnsafe && telegramWebApp.initDataUnsafe.user) {
-    const userId = telegramWebApp.initDataUnsafe.user.id;
-    console.log('User ID:', userId);
-  
-  //const userId = 12345; // يمكن تخصيص userId لكل مستخدم
-
-  fetch(`https://your-api-url.com/user/${userId}`) // استبدل الرابط بعنوان API النهائي
-    .then(response => response.json())
-    .then(userData => {
+document.addEventListener('DOMContentLoaded', function() {
+  // تأكد أن Web App متوفر وأنه يعمل ضمن Telegram
+  if (window.Telegram && window.Telegram.WebApp) {
+    const telegramWebApp = window.Telegram.WebApp;
+    
+    // التحقق من وجود initDataUnsafe ومعلومات المستخدم
+    if (telegramWebApp.initDataUnsafe && telegramWebApp.initDataUnsafe.user) {
+      const userId = telegramWebApp.initDataUnsafe.user.id;
+      console.log('User ID:', userId);
+      
+      // عرض userId في العنصر المحدد (اختياري)
       const userInfoDiv = document.getElementById('userInfo');
-      if (userData) {
-        userInfoDiv.innerHTML = `
-          <p><strong>UUID:</strong> ${userData.uuid}</p>
-          <p><strong>First Name:</strong> ${userData.firstName}</p>
-          <p><strong>User ID:</strong> ${userData.userId}</p>
-          <p><strong>Points:</strong> ${userData.points}</p>
-          <p><strong>Mohtk:</strong> ${userData.mohtk}</p>
-          <p><strong>Sex:</strong> ${userData.sex}</p>
-          <p><strong>Age:</strong> ${userData.age}</p>
-          <p><strong>Referral Link:</strong> ${userData.referralLink}</p>
-          <p><strong>Notifications:</strong> ${userData.notifications}</p>
-          <p><strong>Ban:</strong> ${userData.ban}</p>
-          <p><strong>Save Time:</strong> ${new Date(userData.saveTime).toLocaleString()}</p>
-        `;
-      } else {
-        userInfoDiv.innerHTML = `<p>User data not found</p>`;
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching user data:', error);
-      document.getElementById('userInfo').innerHTML = `<p>Error loading user data</p>`;
-    });
+      userInfoDiv.innerHTML = `<p><strong>User ID:</strong> ${userId}</p>`;
+    } else {
+      console.log('User information is not available.');
+      alert('User information could not be retrieved. Please ensure the app is opened from within Telegram.');
+    }
+  } else {
+    console.log('Telegram WebApp is not available. Please open the app from within Telegram.');
+    alert('Please open the app from within Telegram to access user information.');
+  }
 });
