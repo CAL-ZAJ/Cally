@@ -1,14 +1,14 @@
-// عند تحميل الصفحة، يتم طلب بيانات المستخدم من الخادم
 document.addEventListener('DOMContentLoaded', async function () {
+    // استخراج userId من الرابط
     const userId = new URLSearchParams(window.location.search).get("user_id");
     if (!userId) {
         alert("User ID not found");
         return;
     }
 
-    // طلب بيانات المستخدم من الخادم
+    // طلب بيانات المستخدم باستخدام userId
     try {
-        const response = await fetch(`/user/${userId}`);
+        const response = await fetch(`/user/${userId}`);  // افترض أن لديك مسار API لاسترجاع البيانات
         const userData = await response.json();
 
         // عرض بيانات المستخدم
