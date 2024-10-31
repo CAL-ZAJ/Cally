@@ -1,12 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    const errorMessageDiv = document.getElementById('error-message'); // العنصر الخاص بالأخطاء
-    const loadingScreen = document.getElementById('loading-screen'); // شاشة التحميل
-    const contentDiv = document.getElementById('content'); // المحتوى الرئيسي
-    const userInfoDiv = document.getElementById('user-info'); // عنصر معلومات المستخدم
-
-    errorMessageDiv.innerHTML = ''; // إعادة تعيين أي رسائل خطأ سابقة
-    loadingScreen.style.display = 'block'; // إظهار شاشة التحميل
-
+    const errorMessageDiv = document.getElementById('error-message');
+    
     if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
         const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
@@ -37,22 +31,24 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             const userData = await userResponse.json();
             // عرض بيانات المستخدم
-            userInfoDiv.innerHTML = `<p><strong>User ID:</strong> ${userData.userId}</p>
-                                     <p><strong>First Name:</strong> ${userData.firstName}</p>
-                                     <p><strong>Points:</strong> ${userData.points}</p>`;
+            const userInfoDiv = document.getElementById('user-info');
+            userInfoDiv.innerHTML = `<p><strong>معرف المستخدم:</strong> ${userData.userId}</p>
+                                      <p><strong>الاسم الأول:</strong> ${userData.firstName}</p>
+                                      <p><strong>النقاط:</strong> ${userData.points}</p>`;
 
-            // إخفاء شاشة التحميل وعرض المحتوى
-            loadingScreen.style.display = 'none';
-            contentDiv.style.display = 'block';
+            // إخفاء شاشة التحميل
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+
         } catch (error) {
-            // طباعة الخطأ في أعلى الصفحة
-            errorMessageDiv.innerHTML = error.message; // عرض الرسالة في عنصر الأخطاء
-            console.error(error.message); // طباعة الخطأ في وحدة التحكم
-            loadingScreen.style.display = 'none'; // إخفاء شاشة التحميل
+            // عرض رسالة الخطأ
+            errorMessageDiv.innerText = error.message;
+            errorMessageDiv.style.display = 'block'; // إظهار رسالة الخطأ
+
+            // إخفاء شاشة التحميل
+            document.getElementById('loading-screen').style.display = 'none';
         }
     } else {
-        errorMessageDiv.innerHTML = "معلومات المستخدم غير متاحة."; // عرض رسالة إذا لم تتوفر المعلومات
-        console.log("User information is not available.");
-        loadingScreen.style.display = 'none'; // إخفاء شاشة التحميل
+        console.log("معلومات المستخدم غير متاحة.");
     }
 });
