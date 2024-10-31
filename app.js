@@ -1,5 +1,14 @@
 document.getElementById('fetchUserData').addEventListener('click', function() {
-  const userId = 12345; // يمكن تخصيص userId لكل مستخدم
+ 
+  document.addEventListener('DOMContentLoaded', function() {
+  const telegramWebApp = window.Telegram.WebApp;
+
+  // التأكد من أن التطبيق يعمل داخل Telegram WebApp
+  if (telegramWebApp.initDataUnsafe && telegramWebApp.initDataUnsafe.user) {
+    const userId = telegramWebApp.initDataUnsafe.user.id;
+    console.log('User ID:', userId);
+  
+  //const userId = 12345; // يمكن تخصيص userId لكل مستخدم
 
   fetch(`https://your-api-url.com/user/${userId}`) // استبدل الرابط بعنوان API النهائي
     .then(response => response.json())
