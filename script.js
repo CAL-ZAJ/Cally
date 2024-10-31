@@ -1,29 +1,42 @@
-document.addEventListener('DOMContentLoaded', async function () {
-    // استخراج userId من الرابط
-    const userId = new URLSearchParams(window.location.search).get("user_id");
-    if (!userId) {
-        alert("User ID not found");
-        return;
-    }
+document.addEventListener('DOMContentLoaded', async function() {
+    if (window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
+        const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
 
-    // طلب بيانات المستخدم باستخدام userId
-    try {
-        const response = await fetch(`/user/${userId}`);  // افترض أن لديك مسار API لاسترجاع البيانات
-        const userData = await response.json();
+        // طلب التوكن من الخادم لبدء الجلسة
+        try {
+            const response = await fetch('http://localhost:3000/generate-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId })
+            });
 
-        // عرض بيانات المستخدم
-        document.getElementById('user-info').innerHTML = `
-            <p><strong>UUID:</strong> ${userData.uuid}</p>
-            <p><strong>First Name:</strong> ${userData.firstName}</p>
-            <p><strong>User ID:</strong> ${userData.userId}</p>
-            <p><strong>Points:</strong> ${userData.points}</p>
-        `;
+            if (!response.ok) throw new Error('Failed to generate token.');
 
-        // إخفاء شاشة التحميل وإظهار المحتوى
-        document.getElementById('loading-screen').style.display = 'none';
-        document.getElementById('content').style.display = 'block';
-    } catch (error) {
-        console.error("Error loading user data:", error);
-        alert("Failed to load user data.");
+            const { token } = await response.json();
+
+            // إرسال الطلبات باستخدام التوكن
+            const userResponse = await fetch('http://localhost:3000/user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!userResponse.ok) throw new Error('Failed to load user data.');
+
+            const userData = await userResponse.json();
+            // عرض بيانات المستخدم
+            const userInfoDiv = document.getElementById('userInfo');
+            userInfoDiv.innerHTML = `<p><strong>User ID:</strong> ${userData.userId}</p>
+                                      <p><strong>First Name:</strong> ${userData.firstName}</p>
+                                      <p><strong>Points:</strong> ${userData.points}</p>`;
+        } catch (error) {
+            console.error(error.message);
+        }
+    } else {
+        console.log("User information is not available.");
     }
 });
