@@ -5,8 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WebApp</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* بعض التنسيقات لرسائل الأخطاء */
+        #error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: none; /* إخفاء الرسالة بشكل افتراضي */
+        }
+    </style>
 </head>
 <body>
+    <!-- عنصر لعرض الأخطاء -->
+    <div id="error-message"></div>
+
     <!-- شاشة التحميل -->
     <div id="loading-screen">
         <img src="loading.gif" alt="Loading..." />
@@ -21,22 +33,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebApp</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* بعض التنسيقات لرسائل الأخطاء */
-        #error-message {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <!-- عنصر لعرض الأخطاء -->
-    
