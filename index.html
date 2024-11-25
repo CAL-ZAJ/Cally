@@ -1,35 +1,40 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebApp</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* بعض التنسيقات لرسائل الأخطاء */
-        #error-message {
-            color: red;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: none; /* إخفاء الرسالة بشكل افتراضي */
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- عنصر لعرض الأخطاء -->
-    <div id="error-message"></div>
-
-    <!-- شاشة التحميل -->
-    <div id="loading-screen">
-        <img src="loading.gif" alt="Loading..." />
-    </div>
-
-    <!-- محتوى الصفحة الرئيسي -->
-    <div id="content" style="display: none;">
-        <h1>معلومات المستخدم</h1>
-        <div id="user-info"></div>
-    </div>
-
-    <script src="script.js"></script>
+  <header>
+    <h1>Welcome to My Website</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section id="about">
+    <h2>About Us</h2>
+    <p>This is a brief description about our website.</p>
+  </section>
+  <section id="services">
+    <h2>Our Services</h2>
+    <p>Here you can list the services you provide.</p>
+  </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <input type="text" placeholder="Your Name" id="name" required>
+      <input type="email" placeholder="Your Email" id="email" required>
+      <textarea placeholder="Your Message" id="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+  <footer>
+    <p>&copy; 2024 My Website. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
